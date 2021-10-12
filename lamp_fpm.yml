@@ -1,0 +1,41 @@
+version: "3"
+services:
+    apache:
+        image: "httpd:2.4"
+        container_name: apache-compose
+        restart: unless-stopped
+        ports: 
+            - "8000:80"
+        volumes:
+            - "/home/alfred/Desktop/LAMP/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+            - "/home/alfred/Desktop/LAMP/php:/usr/local/apache2/htdocs/"
+        depends_on:
+            - php
+        networks:
+            - test-net
+    
+    php:
+        image: "php:7.2-fpm"
+        container_name: php-fpm-compose
+        restart: unless-stopped
+        ports:
+            - "9000:9000"
+        volumes:
+            - "/home/alfred/Desktop/LAMP/php:/var/www/html"
+        networks:
+            - test-net
+    
+    mariadb:
+        image: "mariadb:10.4"
+        container_name: mariadb-compose
+        restart: unless-stopped
+        ports:
+            - "3307:3306"
+        environment: 
+        - MYSQL_ROOT_PASSWORD=root
+        networks:
+        - test-net
+        
+networks:
+    test-net:
+        driver: bridge
