@@ -7,8 +7,8 @@ services:
         ports: 
             - "8000:80"
         volumes:
-            - "/home/alfred/Desktop/LAMP/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf"
-            - "/home/alfred/Desktop/LAMP/php:/usr/local/apache2/htdocs/"
+            - "./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+            - "./php:/usr/local/apache2/htdocs/"
         depends_on:
             - php
         networks:
@@ -21,7 +21,7 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - "/home/alfred/Desktop/LAMP/php:/var/www/html"
+            - "./php:/var/www/html"
         networks:
             - test-net
     
